@@ -17,12 +17,20 @@ namespace DapperHomeWork.DataAccess.DapperServer
     {
         public void AddData(Books data)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnString"].ConnectionString))
+            {
+                connection.Open();
+                connection.Execute("insert into Books(Name,Price,AuthorName)values(@BookName,@BookPrice,@BAuthorName)", new { @BAuthorName=data.AuthorName, @BookName = data.Name, @BookPrice = data.Price });
+            }
         }
 
-        public void DeleteData(Books data)
+        public void DeleteData(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnString"].ConnectionString))
+            {
+                connection.Open();
+                connection.Execute("Delete from  Books Where Id=@BId ", new {  @BId = id });
+            }
         }
 
         public List<Books> GetAllData()
@@ -38,12 +46,22 @@ namespace DapperHomeWork.DataAccess.DapperServer
 
         public Books GetData(int id)
         {
-            throw new NotImplementedException();
+            Books book = new Books();
+            using (var connection=new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnString"].ConnectionString))
+            {
+                connection.Open();
+                book = connection.QueryFirstOrDefault<Books>("select *from Books where Id=@Bid", new { @Bid = id });
+            }
+            return book;
         }
 
-        public void UpdateData(Books data)
+        public void UpdateData(int id,Books data)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnString"].ConnectionString))
+            {
+                connection.Open();
+                connection.Execute("Update Books Set Name=@BName,Price=@BPrice,AuthorName=@BAuthorName where Id=@BId", new { @BAuthorName=data.AuthorName, @BName = data.Name, @BPrice = data.Price, @BId = id });
+            }
         }
     }
 }

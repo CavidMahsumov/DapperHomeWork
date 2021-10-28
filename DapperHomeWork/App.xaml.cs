@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DapperHomeWork.DataAccess.DapperServer;
+using DapperHomeWork.Domain.Abstraction;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +15,11 @@ namespace DapperHomeWork
     /// </summary>
     public partial class App : Application
     {
+        public static IUnitOfWork DB;
+
+        public App()
+        {
+            DB = new UnitOfWork();
+        }
     }
 }

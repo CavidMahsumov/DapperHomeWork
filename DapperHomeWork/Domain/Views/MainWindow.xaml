@@ -5,8 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DapperHomeWork"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Title="MainWindow" Height="450" Width="900">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <DataGrid SelectedItem="{Binding SelectedBooks}" x:Name="BooksDataGrid" Background="Aqua" BorderThickness="0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelectBookCommand}"
+                           />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel >
+                <WrapPanel >
+                    <Button Command="{Binding AddBtnClick}" FontWeight="SemiBold" FontSize="20" Background="DarkOrange" Content="Add Product" Width="200" Height="60" Margin="70,30,0,0">
+                        
+                    </Button>
+                    <Button Command="{Binding UpdateBtnClick}"  FontWeight="SemiBold" FontSize="20" Background="DarkOrange" Content="Update Product" Width="200" Height="60" Margin="80,30,0,0">
+
+                    </Button>
+                    <Button Command="{Binding DeleteBtnClick}" FontWeight="SemiBold" FontSize="20" Background="DarkOrange" Content="Delete Product" Width="200" Height="60" Margin="80,30,0,0">
+
+                    </Button>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock  Margin="0,20,0,0" FontSize="20">Name </TextBlock>
+                    <TextBox Margin="20,20,0,0" Width="200" Name="NameTxtBox" Height="30">
+                        
+                    </TextBox>
+                    <TextBlock  Margin="10,20,0,0" FontSize="20">Price</TextBlock>
+                    <TextBox Margin="10,20,0,0" Width="200" Name="PriceTxtBox" Height="30">
+
+                    </TextBox>
+                    <TextBlock  Margin="10,20,0,0" FontSize="20"><Run Text="AuthorName"/></TextBlock>
+                    <TextBox Margin="10,20,0,0" Width="200" Name="AuthorNametxtBox" Height="30">
+
+                    </TextBox>
+
+                </WrapPanel>
+            </StackPanel>
+        </Grid>
         
     </Grid>
 </Window>
