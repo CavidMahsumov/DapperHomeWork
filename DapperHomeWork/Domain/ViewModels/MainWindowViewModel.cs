@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DapperHomeWork.Domain.ViewModels
 {
-    public class MainWindowViewModel:BaseViewModel
+    public class MainWindowViewModel : BaseViewModel
     {
         private Books selectedBook;
 
@@ -28,30 +28,48 @@ namespace DapperHomeWork.Domain.ViewModels
             mainWindow.BooksDataGrid.ItemsSource = App.DB.booksRepository.GetAllData();
             AddBtnClick = new RelayCommand((sender) =>
             {
-                App.DB.booksRepository.AddData(new Books
+                try
                 {
-                    Name = mainWindow.NameTxtBox.Text,
-                    AuthorName = mainWindow.AuthorNametxtBox.Text,
-                    Price = decimal.Parse(mainWindow.PriceTxtBox.Text)
-                });
+                    App.DB.booksRepository.AddData(new Books
+                    {
+                        Name = mainWindow.NameTxtBox.Text,
+                        AuthorName = mainWindow.AuthorNametxtBox.Text,
+                        Price = decimal.Parse(mainWindow.PriceTxtBox.Text)
+                    });
 
-                mainWindow.BooksDataGrid.ItemsSource = App.DB.booksRepository.GetAllData();
+                    mainWindow.BooksDataGrid.ItemsSource = App.DB.booksRepository.GetAllData();
+                }
+                catch (Exception)
+                {
+
+                }
+
 
             });
             UpdateBtnClick = new RelayCommand((sender) =>
             {
 
-                App.DB.booksRepository.UpdateData(SelectedBooks.Id, new Books
+                try
                 {
-                     Name=mainWindow.NameTxtBox.Text,
-                      Price=decimal.Parse(mainWindow.PriceTxtBox.Text),
-                       AuthorName=mainWindow.AuthorNametxtBox.Text
+                    App.DB.booksRepository.UpdateData(SelectedBooks.Id, new Books
+                    {
+                        Name = mainWindow.NameTxtBox.Text,
+                        Price = decimal.Parse(mainWindow.PriceTxtBox.Text),
+                        AuthorName = mainWindow.AuthorNametxtBox.Text
 
-                });
-                mainWindow.BooksDataGrid.ItemsSource = App.DB.booksRepository.GetAllData();
+                    });
+                    mainWindow.BooksDataGrid.ItemsSource = App.DB.booksRepository.GetAllData();
+                }
+                catch (Exception)
+                {
+
+                }
+
+
 
             });
-            SelectBookCommand = new RelayCommand((seder) => {
+            SelectBookCommand = new RelayCommand((seder) =>
+            {
 
                 if (SelectedBooks != null)
                 {
@@ -62,8 +80,16 @@ namespace DapperHomeWork.Domain.ViewModels
             });
             DeleteBtnClick = new RelayCommand((sender) =>
             {
-                App.DB.booksRepository.DeleteData(selectedBook.Id);
-                mainWindow.BooksDataGrid.ItemsSource = App.DB.booksRepository.GetAllData();
+                try
+                {
+                    App.DB.booksRepository.DeleteData(selectedBook.Id);
+                    mainWindow.BooksDataGrid.ItemsSource = App.DB.booksRepository.GetAllData();
+                }
+                catch (Exception)
+                {
+
+                }
+
 
 
 
